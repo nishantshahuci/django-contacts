@@ -1,0 +1,10 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block body_block %}
+  <link rel="stylesheet" type="text/css" href="{% static 'app/index.css' %}">
+  <div class="jumbotron text-center">
+    <h1 class="display-1"><span class="main">Welcome</span></h1>
+    <p class="lead"><span class="sub">Click the button below to login and get started</span></p>
+    <a class="btn btn-success btn-lg login-button" href="{% url 'user_login' %}" role="button">Get started<i class="fas fa-chevron-right"></i></a>
+  </div>
+{% endblock %}

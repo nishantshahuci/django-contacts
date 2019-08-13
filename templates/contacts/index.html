@@ -1,0 +1,63 @@
+{% extends "app/base.html" %}
+{% block body_block %}
+
+  <div class="row align-items-center justify-content-between my-4 mx-0">
+    <h1>Contacts</h1>
+    <a href="{% url 'contacts:edit' %}" class="btn btn-outline-success">Create</a>
+  </div>
+
+  <div class="row">
+    <form class="col-12" action="{% url 'contacts:search' %}" method="post">
+      {% csrf_token %}
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search" aria-label="Search" name="search">
+        <div class="input-group-append">
+          <input type="submit" class="input-group-text" value="Search">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  {% if contacts and count > 0 %}
+  <div class="accordion col-12 px-0" id="contacts_list">
+    {% for contact in contacts %}
+      <div class="card">
+        <div class="card-header row align-items-center" id="heading-{{contact.id}}" data-toggle="collapse" data-target="#collapse-{{contact.id}}" aria-expanded="false" aria-controls="collapse-{{contact.id}}">
+          <div class="p-2 mr-auto">
+            <h4 class="mb-0">{{ contact }}</h4>
+          </div>
+          <a href="{% url 'contacts:edit' contact_id=contact.id %}" class="text-body"><i class="fas fa-pen fa-lg p-2"></i></a>
+          <a href="{% url 'contacts:delete' contact_id=contact.id %}" class="text-body"><i class="fas fa-trash fa-lg p-2"></i></a>
+        </div>
+
+        <div id="collapse-{{contact.id}}" class="collapse" aria-labelledby="heading-{{contact.id}}" data-parent="#contacts_list">
+          <div class="card-body">
+            <table class="table table-borderless table-sm table-hover">
+              <tbody>
+                <tr>
+                  <td>Phone number:</td>
+                  <td>{{ contact.phone_number }}</td>
+                </tr>
+                <tr>
+                  <td>Email address:</td>
+                  <td>{{ contact.email_address }}</td>
+                </tr>
+                <tr>
+                  <td>Address:</td>
+                  <td>{{ contact.address }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <div class="row justify-content-center mt-4">
+      <h4>You don't have any contacts! Add more by clicking the button above!</h4>
+    </div>
+  {% endif %}
+
+
+{% endblock %}
