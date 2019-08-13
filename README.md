@@ -1,5 +1,9 @@
 # django-contacts
 
+Requirements:
+1. Python 2.7
+1. Django 1.11
+
 To run this project:
 1. Clone the project to your desktop
 1. In the terminal, to go the project directory and run the following commands:
